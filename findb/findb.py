@@ -4,8 +4,7 @@ from six import iteritems
 from six.moves.cPickle import dump, load, HIGHEST_PROTOCOL
 from time import time
 
-from .exceptions import (
-    DecrementNonInt, FileLoadError, FileWriteError, IncrementNonInt)
+from .exceptions import DecrementNonInt, FileLoadError, FileWriteError, IncrementNonInt
 
 
 class FinDB(object):
@@ -31,13 +30,13 @@ class FinDB(object):
         """
         if self.location and path.exists(self.location):
             try:
-                fs = open(self.location, 'rb')
+                fs = open(self.location, "rb")
             except Exception as e:
                 raise e
             try:
                 data = load(fs)
-                self.last_saved = data['last_saved']
-                self.data = data['data']
+                self.last_saved = data["last_saved"]
+                self.data = data["data"]
             except Exception:
                 fs.close()
                 raise FileLoadError("The given file could not be loaded")
@@ -49,7 +48,7 @@ class FinDB(object):
     def _save(self):
         if self.location:
             try:
-                fs = open(self.location, 'wt')
+                fs = open(self.location, "wt")
             except Exception as e:
                 raise e
             try:
@@ -80,7 +79,8 @@ class FinDB(object):
             value = 0
         if type(value) is not int:
             raise IncrementNonInt(
-                "You are attempting to increase a value that is not stored as an int.")
+                "You are attempting to increase a value that is not stored as an int."
+            )
         else:
             value += incr
             self.set(key, value)
@@ -95,7 +95,8 @@ class FinDB(object):
             value = 0
         if type(value) is not int:
             raise DecrementNonInt(
-                "You are attempting to decrease a value that is not stored as an int.")
+                "You are attempting to decrease a value that is not stored as an int."
+            )
         else:
             value -= decr
             self.set(key, value)
