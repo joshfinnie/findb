@@ -78,9 +78,7 @@ class FinDB(object):
         if not value:
             value = 0
         if type(value) is not int:
-            raise IncrementNonInt(
-                "You are attempting to increase a value that is not stored as an int."
-            )
+            raise IncrementNonInt("You are attempting to increase a value that is not stored as an int.")
         else:
             value += incr
             self.set(key, value)
@@ -94,9 +92,7 @@ class FinDB(object):
         if not value:
             value = 0
         if type(value) is not int:
-            raise DecrementNonInt(
-                "You are attempting to decrease a value that is not stored as an int."
-            )
+            raise DecrementNonInt("You are attempting to decrease a value that is not stored as an int.")
         else:
             value -= decr
             self.set(key, value)

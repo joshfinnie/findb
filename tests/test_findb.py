@@ -3,12 +3,7 @@ import pytest
 from datetime import datetime
 
 import findb
-from findb.exceptions import (
-    DecrementNonInt,
-    FileLoadError,
-    FileWriteError,
-    IncrementNonInt,
-)
+from findb.exceptions import DecrementNonInt, FileLoadError, FileWriteError, IncrementNonInt
 
 DB_SIZE = 3
 MOCK_DATA = {"last_saved": "now", "data": {"test": "foo"}}
