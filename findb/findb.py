@@ -48,14 +48,14 @@ class FinDB(object):
     def _save(self):
         if self.location:
             try:
-                fs = open(self.location, "wt")
+                fs = open(self.location, "wb")
             except Exception as e:
                 raise e
             try:
                 self.last_saved = time()
                 dump(self.__dict__, fs, HIGHEST_PROTOCOL)
                 fs.close()
-            except:
+            except Exception:
                 raise FileWriteError("Could not write database to file.")
         else:
             self.last_saved = time()

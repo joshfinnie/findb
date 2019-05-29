@@ -20,6 +20,11 @@ db.get('aoeu')
 
 ## Tests
 
+First, install the packages required for testing FinDB, then run the `make test` command.
+
 ```
-pytest -v --cov=findb --cov-report term-missing
+$ pip install -r test-requirements.txt
+$ make test
 ```
+
+or if you have access to Docker run `make dtest` which will build a Docker container and run the tests on that container.

@@ -1,6 +1,7 @@
 import mock
 import pytest
 from datetime import datetime
+from six.moves.cPickle import HIGHEST_PROTOCOL
 
 import findb
 from findb.exceptions import DecrementNonInt, FileLoadError, FileWriteError, IncrementNonInt
@@ -81,8 +82,8 @@ def test__save_with_location(mock_dump, mock_open, db):
     mock_open.return_value = mock_open_fs
     db.location = location
     db._save()
-    mock_open.assert_called_with(location, "wt")
-    mock_dump.assert_called_with(db.__dict__, mock_open_fs, 2)
+    mock_open.assert_called_with(location, "wb")
+    mock_dump.assert_called_with(db.__dict__, mock_open_fs, HIGHEST_PROTOCOL)
     db.location = None
 
 
