@@ -1,0 +1,9 @@
+.cache
+.git
+.pytest_cache
+findb.egg-info
+.coverage
+.gitignore
+Pipfile
+README.md
+fake.db

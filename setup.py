@@ -16,7 +16,7 @@ setup(
     zip_safe=False,
     install_requires=requires,
     tests_require=tests_require,
-    classifiers=(
+    classifiers=[
         "Natural Language :: English",
         "License :: OSI Approved :: MIT",
         "Programming Language :: Python",
@@ -27,5 +27,5 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
-    ),
+    ],
 )
