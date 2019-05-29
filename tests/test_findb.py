@@ -82,7 +82,7 @@ def test__save_with_location(mock_dump, mock_open, db):
     db.location = location
     db._save()
     mock_open.assert_called_with(location, "wb")
-    mock_dump.assert_called_with(db.__dict__, mock_open_fs, 4)
+    mock_dump.assert_called_with(db.__dict__, mock_open_fs, 2)
     db.location = None
 
 
