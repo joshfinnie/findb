@@ -1,7 +1,6 @@
 from datetime import datetime
 from os import path, remove
-from six import iteritems
-from six.moves.cPickle import dump, load, HIGHEST_PROTOCOL
+from pickle import dump, load, HIGHEST_PROTOCOL
 from time import time
 
 from .exceptions import DecrementNonInt, FileLoadError, FileWriteError, IncrementNonInt
@@ -21,7 +20,7 @@ class FinDB(object):
             self._load()
 
     def __iter__(self):
-        return iteritems(self.data)
+        return self.data.items()
 
     def _load(self):
         """
@@ -114,7 +113,7 @@ class FinDB(object):
         """
         The `dbsize` function returns the number of keys in the database.
         """
-        return len(self.data.keys())
+        return len(list(self.data.keys()))
 
     def set(self, key, value):
         """
