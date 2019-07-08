@@ -20,7 +20,7 @@ class FinDB(object):
             self._load()
 
     def __iter__(self):
-        return self.data.items()
+        return iter(self.data.items())
 
     def _load(self):
         """
