@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/joshfinnie/findb.svg?branch=master)](https://travis-ci.org/joshfinnie/findb)
 
-FinDB is a key-value store written in Python. Probably shouldn't use it for anything...
+FinDB is a key-value store written in Python 3. Probably shouldn't use it for anything...
 
 
 ## Install
