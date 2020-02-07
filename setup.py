@@ -1,11 +1,11 @@
 from setuptools import setup
 
 requires = []
-tests_require = ["mock", "pytest", "pytest-cov"]
+tests_require = ["pytest", "pytest-cov"]
 
 setup(
     name="findb",
-    version="0.1",
+    version="0.2",
     description="A very basic Key-Value Database.",
     url="http://github.com/joshfinnie/findb",
     author="Josh Finnie",

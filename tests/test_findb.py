@@ -1,5 +1,5 @@
-import mock
-import pytest
+from unittest.mock import Mock, patch
+from pytest import fail, fixture, raises
 from datetime import datetime
 from six.moves.cPickle import HIGHEST_PROTOCOL
 
@@ -10,7 +10,7 @@ DB_SIZE = 3
 MOCK_DATA = {"last_saved": "now", "data": {"test": "foo"}}
 
 
-@pytest.fixture
+@fixture
 def db():
     db = findb.DB()
     db.set("key1", "value1")
@@ -20,7 +20,7 @@ def db():
     db.flushdb()
 
 
-@mock.patch("findb.findb.FinDB._load")
+@patch("findb.findb.FinDB._load")
 def test_initialization_with_location(mock_load):
     findb.DB("fake.db")
     mock_load.assert_called_with()
@@ -31,9 +31,9 @@ def test__load_with_no_location(db):
     assert db.data == {}
 
 
-@mock.patch("findb.findb.path.exists")
-@mock.patch("findb.findb.open")
-@mock.patch("findb.findb.load")
+@patch("findb.findb.path.exists")
+@patch("findb.findb.open")
+@patch("findb.findb.load")
 def test__load_with_location(mock_load, mock_open, mock_exists, db):
     location = "fake.db"
     db.location = location
@@ -47,38 +47,38 @@ def test__load_with_location(mock_load, mock_open, mock_exists, db):
     db.location = None
 
 
-@mock.patch("findb.findb.path.exists")
-@mock.patch("findb.findb.open")
-@mock.patch("findb.findb.load")
+@patch("findb.findb.path.exists")
+@patch("findb.findb.open")
+@patch("findb.findb.load")
 def test__load_failure_on_open(mock_load, mock_open, mock_exists, db):
     location = "fake.db"
     db.location = location
     mock_exists.return_value = True
     mock_open.side_effect = Exception("fake exception")
-    with pytest.raises(Exception):
+    with raises(Exception):
         db._load()
     db.location = None
 
 
-@mock.patch("findb.findb.path.exists")
-@mock.patch("findb.findb.open")
-@mock.patch("findb.findb.load")
+@patch("findb.findb.path.exists")
+@patch("findb.findb.open")
+@patch("findb.findb.load")
 def test__load_failure_on_load(mock_load, mock_open, mock_exists, db):
     location = "fake.db"
     db.location = location
     mock_exists.return_value = True
     mock_load.side_effect = Exception("fake exception")
-    with pytest.raises(FileLoadError):
+    with raises(FileLoadError):
         db._load()
         mock_open.assert_called_with(location, "rb")
     db.location = None
 
 
-@mock.patch("findb.findb.open")
-@mock.patch("findb.findb.dump")
+@patch("findb.findb.open")
+@patch("findb.findb.dump")
 def test__save_with_location(mock_dump, mock_open, db):
     location = "fake.db"
-    mock_open_fs = mock.Mock()
+    mock_open_fs = Mock()
     mock_open.return_value = mock_open_fs
     db.location = location
     db._save()
@@ -87,24 +87,24 @@ def test__save_with_location(mock_dump, mock_open, db):
     db.location = None
 
 
-@mock.patch("findb.findb.open")
-@mock.patch("findb.findb.dump")
+@patch("findb.findb.open")
+@patch("findb.findb.dump")
 def test__save_failure_on_open(mock_dump, mock_open, db):
     location = "fake.db"
     db.location = location
     mock_open.side_effect = Exception("fake exception")
-    with pytest.raises(Exception):
+    with raises(Exception):
         db._save()
     db.location = None
 
 
-@mock.patch("findb.findb.open")
-@mock.patch("findb.findb.dump")
+@patch("findb.findb.open")
+@patch("findb.findb.dump")
 def test__save_failure_on_dump(mock_dump, mock_open, db):
     location = "fake.db"
     db.location = location
     mock_dump.side_effect = Exception("fake exception")
-    with pytest.raises(FileWriteError):
+    with raises(FileWriteError):
         db._save()
         mock_open.assert_called_with(location, "wt")
     db.location = None
@@ -114,7 +114,7 @@ def test_if_db_is_iterable(db):
     try:
         _ = (e for e in db)  # noqa: F841
     except TypeError:
-        pytest.fail("Cannot iterate db")
+        fail("Cannot iterate db")
 
 
 def test_get_with_no_data(db):
@@ -138,7 +138,7 @@ def test_incr_with_key(db):
 
 
 def test_incr_with_non_int_key(db):
-    with pytest.raises(IncrementNonInt):
+    with raises(IncrementNonInt):
         db.incr("key1")
 
 
@@ -153,7 +153,7 @@ def test_decr_with_key(db):
 
 
 def test_decr_with_non_int_key(db):
-    with pytest.raises(DecrementNonInt):
+    with raises(DecrementNonInt):
         db.decr("key1")
 
 
@@ -190,7 +190,7 @@ def test_flushdb(db):
     assert db.dbsize() == 0
 
 
-@mock.patch("findb.findb.remove")
+@patch("findb.findb.remove")
 def test_deletedb(mock_remove, db):
     location = "fake.db"
     db.location = location
@@ -200,7 +200,7 @@ def test_deletedb(mock_remove, db):
 
 
 def test_deletedb_with_no_location(db):
-    mock_flushdb = mock.Mock()
+    mock_flushdb = Mock()
     db.flushdb = mock_flushdb
     db.deletedb()
     mock_flushdb.assert_called_with()
