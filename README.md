@@ -1,6 +1,6 @@
 # FinDB
 
-[![Build Status](https://travis-ci.org/joshfinnie/findb.svg?branch=master)](https://travis-ci.org/joshfinnie/findb)
+[![Test](https://github.com/joshfinnie/findb/workflows/Test/badge.svg)](https://github.com/joshfinnie/findb/actions?query=workflow%3ATest)
 
 FinDB is a key-value store written in Python 3. Probably shouldn't use it for anything...
 
